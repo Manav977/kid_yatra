@@ -1,0 +1,121 @@
+.about {
+  /* Use min-height: 100vh so content can still grow if needed */
+  min-height: 100vh;
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  
+  /* Centers the container vertically within the 100vh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.aboutContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  
+  /* Gradient Text - Added standard background-clip for compatibility */
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Fallback color if gradient text is not supported */
+  color: #FF6B35; 
+}
+
+.sectionSubtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0 auto 4rem auto; /* Centering with auto left/right */
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+.aboutContent {
+  display: grid;
+  /* auto-fit will create as many columns as possible based on 300px min width */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.aboutCard {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 107, 53, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.15);
+}
+
+.iconWrapper {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0; /* Prevents icon from squishing in tight grids */
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  transition: transform 0.5s ease; /* Slightly slower for a smoother spin */
+}
+
+.aboutCard:hover .iconWrapper {
+  transform: rotate(360deg);
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.cardText {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #666;
+  margin: 0;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 1.5rem;
+    height: auto; /* Allow section to expand on mobile */
+    min-height: 100vh; 
+  }
+
+  .sectionTitle {
+    font-size: 2.2rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .aboutContent {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 2rem;
+  }
+}
