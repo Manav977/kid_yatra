@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ActivityCard } from './Activitycard';
+import { ActivityCard } from './ActivityCard';
 import { activities } from '../../mock';
 import styles from './Activities.module.css';
 
