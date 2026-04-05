@@ -8,6 +8,54 @@
   margin: 0 auto;
 }
 
+/* Skeleton Card Styling */
+.skeletonCard {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding-bottom: 20px;
+}
+
+.skeletonImage, .skeletonText1, .skeletonText2 {
+  background: #eee;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 250px;
+}
+
+.skeletonText1 {
+  width: 60%;
+  height: 20px;
+  margin: 20px auto 10px 20px;
+  border-radius: 4px;
+}
+
+.skeletonText2 {
+  width: 85%;
+  height: 15px;
+  margin: 0 20px 10px 20px;
+  border-radius: 4px;
+}
+
+/* Shimmer Animation */
+.skeletonImage::after, .skeletonText1::after, .skeletonText2::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
 .sectionTitle {
   font-size: 3rem;
   font-weight: 800;

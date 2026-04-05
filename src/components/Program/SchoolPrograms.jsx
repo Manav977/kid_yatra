@@ -1,15 +1,29 @@
-import React, { useEffect } from 'react'; // useEffect import kiya
-import { schoolPrograms } from '../../mock';
+import React, { useState, useEffect } from 'react';
+import { db } from '../../../firebaseConfig';
+import { collection, getDocs } from "firebase/firestore";
 import styles from './SchoolPrograms.module.css';
 
 export const SchoolPrograms = () => {
+  const [programs, setPrograms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Preloading Logic: Jab component mount ho, images download shuru kar do
   useEffect(() => {
-    schoolPrograms.forEach((program) => {
-      const img = new Image();
-      img.src = program.image;
-    });
+    const fetchPrograms = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "programs"));
+        const data = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setPrograms(data);
+      } catch (error) {
+        console.error("Error fetching programs: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrograms();
   }, []);
 
   const scrollToContact = () => {
@@ -40,21 +54,37 @@ export const SchoolPrograms = () => {
         </p>
 
         <div className={styles.programsGrid}>
-          {schoolPrograms.map((program) => (
-            <div key={program.id} className={styles.programCard}>
-              <img 
-                src={program.image} 
-                alt={program.title} 
-                className={styles.programImage}
-                loading="lazy" // Sirf un browsers ke liye jo preloading support nahi karte
-                decoding="async"
-              />
-              <div className={styles.programContent}>
-                <h3 className={styles.programTitle}>{program.title}</h3>
-                <p className={styles.programDescription}>{program.description}</p>
+          {loading ? (
+            Array(3).fill(0).map((_, index) => (
+              <div key={index} className={styles.skeletonCard}>
+                <div className={styles.skeletonImage}></div>
+                <div className={styles.skeletonText1}></div>
+                <div className={styles.skeletonText2}></div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            programs.map((program) => (
+              <div key={program.id} className={styles.programCard}>
+                <img 
+                  src={program.imageUrl || program.image ||'https://via.placeholder.com/400x250?text=Kid+Yatra+Adventure'} 
+                  alt={program.title} 
+                  className={styles.programImage}
+                  loading="lazy" 
+                  decoding="async"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/400x250?text=Kid+Yatra+Adventure';
+                  }}
+                />
+                <div className={styles.programContent}>
+                  <h3 className={styles.programTitle}>{program.title}</h3>
+                  <span className={styles.programMeta}>
+                    {program.duration || 'Day Trip'} | ₹{program.price || 'Contact for Quote'}
+                  </span>
+                  <p className={styles.programDescription}>{program.description}</p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
         <div className={styles.ctaSection}>

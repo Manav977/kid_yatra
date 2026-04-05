@@ -1,0 +1,158 @@
+.container {
+  padding: 10px;
+}
+
+.header {
+  margin-bottom: 25px;
+}
+
+.header h3 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #636e72;
+  font-size: 0.95rem;
+}
+
+.form {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.inputField {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  padding: 0 15px;
+}
+
+.inputField input {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  padding: 12px 10px !important;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.textArea {
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #dfe6e9;
+  margin-bottom: 15px;
+  min-height: 100px;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.textArea:focus {
+  border-color: #FF6B35;
+}
+
+.icon {
+  color: #FF6B35;
+}
+
+.addBtn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.addBtn:hover {
+  background: #219150;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #f8f9fa;
+  padding: 15px;
+  text-align: left;
+  color: #636e72;
+  font-weight: 600;
+  border-bottom: 2px solid #f1f2f6;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f2f6;
+  vertical-align: middle;
+}
+
+.thumb {
+  width: 60px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.titleText {
+  font-weight: 500;
+  color: #2d3436;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #e74c3c;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBtn:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+.emptyMsg {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}
+
+@media (max-width: 600px) {
+  .inputGrid { grid-template-columns: 1fr; }
+}

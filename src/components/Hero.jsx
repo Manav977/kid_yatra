@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
 
-// Cloudinary optimization parameters: 
-// f_auto: Automatic format (WebP/AVIF)
-// q_auto: Automatic compression
 const HERO_IMAGES = [
   "https://res.cloudinary.com/dvj3fj7gz/image/upload/f_auto,q_auto/v1774717106/Gemini_Generated_Image_vlshetvlshetvlsh_1_ajqkod.png",
   "https://res.cloudinary.com/dvj3fj7gz/image/upload/f_auto,q_auto/v1774717460/Gemini_Generated_Image_j8prdtj8prdtj8pr_jb8con.png",
@@ -12,13 +9,17 @@ const HERO_IMAGES = [
 
 export const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false); // New state to check first image load
 
   useEffect(() => {
-    // 1. PRELOADING LOGIC: 
-    // Browser ko pehle hi bol rahe hain ki saari images download kar le
-    HERO_IMAGES.forEach((src) => {
+    // 1. PRELOADING LOGIC & CHECKING FIRST IMAGE
+    let loadedCount = 0;
+    HERO_IMAGES.forEach((src, index) => {
       const img = new Image();
       img.src = src;
+      img.onload = () => {
+        if (index === 0) setIsLoaded(true); // Pehli image aate hi skeleton hata do
+      };
     });
 
     // 2. SLIDER TIMER
@@ -35,23 +36,25 @@ export const Hero = () => {
       const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
 
   return (
     <section id="home" className={styles.hero}>
+      {/* 3. HERO SKELETON */}
+      {!isLoaded && (
+        <div className={styles.heroSkeleton}>
+          <div className={styles.shimmer}></div>
+        </div>
+      )}
+
       <div className={styles.heroBackgroundsContainer}>
         {HERO_IMAGES.map((imageUrl, index) => (
           <img
             key={imageUrl}
             src={imageUrl}
             alt={`Adventure activity background ${index + 1}`}
-            // Loading="eager" pehli image ke liye aur baki ke liye lazy
             loading={index === 0 ? "eager" : "lazy"}
             className={`${styles.heroBackgroundImage} ${
               index === currentImageIndex ? styles.active : ''
@@ -60,7 +63,8 @@ export const Hero = () => {
         ))}
       </div>
       
-      <div className={styles.heroContent}>
+      {/* Content hamesha dikhega (ya loading ke baad) */}
+      <div className={`${styles.heroContent} ${isLoaded ? styles.fadeIn : ''}`}>
         <h1 className={styles.heroTitle}>Unforgettable Adventures for Young Explorers</h1>
         <p className={styles.heroSubtitle}>Hill 'n' Thrills Adventure Resort - Morni Hills</p>
         <p className={styles.heroDescription}>

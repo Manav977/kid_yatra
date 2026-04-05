@@ -8,6 +8,41 @@
   margin: 0 auto;
 }
 
+/* Skeleton Base */
+.skeletonItem {
+  width: 100%;
+  aspect-ratio: 1/1; /* Gallery image jaisa square shape */
+  background: #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Shimmer Effect (Chamakne wala animation) */
+.skeletonItem::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .sectionTitle {
   font-size: 3rem;
   font-weight: 800;

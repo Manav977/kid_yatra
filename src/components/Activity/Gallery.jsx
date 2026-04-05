@@ -1,15 +1,29 @@
-import React, { useEffect } from 'react';
-import { galleryImages } from '../../mock';
+import React, { useState, useEffect } from 'react';
+import { db } from '../../../firebaseConfig.js';
+import { collection, getDocs } from "firebase/firestore";
 import styles from './Gallery.module.css';
 
 export const Gallery = () => {
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Gallery ki saari images ko background mein preload karein
-    galleryImages.forEach((image) => {
-      const img = new Image();
-      img.src = image.url;
-    });
+    const fetchGalleryImages = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "gallery"));
+        const data = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setImages(data);
+      } catch (error) {
+        console.error("Error fetching gallery images: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGalleryImages();
   }, []);
 
   return (
@@ -21,18 +35,24 @@ export const Gallery = () => {
         </p>
 
         <div className={styles.galleryGrid}>
-          {galleryImages.map((image) => (
-            <div key={image.id} className={styles.galleryItem}>
-              <img 
-                src={image.url} 
-                alt={image.alt} 
-                className={styles.galleryImage}
-                // Browser ko batayein ki ye images background mein fetch ho sakti hain
-                loading="lazy" 
-                decoding="async"
-              />
-            </div>
-          ))}
+          {loading ? (
+            // Jab data load ho raha ho, 8 skeletons dikhayein
+            Array(8).fill(0).map((_, index) => (
+              <div key={index} className={styles.skeletonItem}></div>
+            ))
+          ) : (
+            // Jab data aa jaye
+            images.map((image) => (
+              <div key={image.id} className={styles.galleryItem}>
+                <img 
+                  src={image.url} 
+                  alt={image.alt} 
+                  className={styles.galleryImage}
+                  loading="lazy" 
+                />
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>

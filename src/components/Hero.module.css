@@ -9,6 +9,54 @@
   text-align: center;
 }
 
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1a1a1a; /* Dark background jab tak image na aaye */
+}
+
+/* Skeleton Container */
+.heroSkeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #222; /* Darker grey for hero */
+  z-index: 5;
+}
+
+/* Shimmer Effect */
+.shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmerAnim 2s infinite;
+}
+
+@keyframes shimmerAnim {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Hero content fade in effect */
+.heroContent {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 10;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
 .heroBackgroundsContainer {
   position: absolute;
   top: 0;
