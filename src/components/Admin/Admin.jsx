@@ -5,7 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import styles from './Admin.module.css';
 import ActivityManager from './ActivityManager';
 import GalleryManager from './GalleryManager';
-import SchoolProgramManager from './SchoolProgram';
+import SchoolProgramManager from './SchoolProgramManager';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('activities');

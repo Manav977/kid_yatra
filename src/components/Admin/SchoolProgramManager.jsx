@@ -18,7 +18,6 @@ const SchoolProgramManager = () => {
     try {
       const snapshot = await getDocs(collection(db, "programs"));
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      console.log("Programs Data:", data); // Debugging line
       setPrograms(data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -34,7 +33,7 @@ const SchoolProgramManager = () => {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (!newProgram.title || !newProgram.imageUrl) {
+    if (!newProgram.title || !newProgram.imageUrl ) {
       toast.error("Title and Image URL are required!");
       return;
     }

@@ -18,7 +18,6 @@ const GalleryManager = () => {
       // Collection name must be exactly "gallery" in Firebase
       const snapshot = await getDocs(collection(db, "gallery"));
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      console.log("Gallery Data:", data); // Debugging line
       setImages(data);
     } catch (error) {
       console.error("Gallery Fetch Error:", error);
@@ -105,7 +104,7 @@ const GalleryManager = () => {
           <div className={styles.galleryPreviewGrid}>
             {images.map(img => (
               <div key={img.id} className={styles.previewCard}>
-                <img src={img.url} alt={img.alt} />
+                <img src={img.url } alt={img.alt} />
                 <button onClick={() => handleDelete(img.id)} className={styles.deleteBtn}>
                   <Trash2 size={14} /> Delete
                 </button>
