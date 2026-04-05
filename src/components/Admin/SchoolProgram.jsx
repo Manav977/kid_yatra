@@ -3,7 +3,7 @@ import { db } from '../../../firebaseConfig';
 import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { Plus, Trash2, Link as LinkIcon } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
-import styles from './SchoolProgramManager.module.css';
+import styles from './SchoolProgrammanager.module.css';
 
 const SchoolProgramManager = () => {
   const [programs, setPrograms] = useState([]);
