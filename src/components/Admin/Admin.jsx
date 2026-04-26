@@ -7,6 +7,7 @@ import ActivityManager from './ActivityManager';
 import GalleryManager from './GalleryManager';
 import SchoolProgramManager from './SchoolProgramManager';
 
+
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('activities');
   const [loading, setLoading] = useState(true);
